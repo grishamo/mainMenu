@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Ex04;
 
 namespace Ex04.Menu.Test
 {
@@ -8,6 +9,7 @@ namespace Ex04.Menu.Test
     {
         static void Main()
         {
+         
         }
     }
 }
