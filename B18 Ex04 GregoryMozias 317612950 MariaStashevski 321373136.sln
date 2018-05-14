@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex04.Menu.Test", "Ex04.Menu.Test\Ex04.Menu.Test.csproj", "{704ECB1A-DE81-4474-AFE7-3AF018482740}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex04.Menus.Interface", "Ex04.Menus.Interfaces\Ex04.Menus.Interface.csproj", "{60D61FC1-C794-4816-809F-410A1B3463FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex04.Menus.Delegates", "Ex04.Menus.Interfaces\Ex04.Menus.Delegates.csproj", "{60D61FC1-C794-4816-809F-410A1B3463FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

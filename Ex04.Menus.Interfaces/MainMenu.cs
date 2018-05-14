@@ -1,48 +1,110 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ex04.Menus.Interface
+namespace Ex04.Menus.Delegates
 {
     ///<summary>
-    ///Main Manu with interface implementation
+    ///Main Menu with delegates implementation.
     ///</summary>
     public class MainMenu
     {
-        private readonly List<MenuItem> r_MenuItems = new List<MenuItem>();
+        #region Members
+        private List<MenuItem> m_Menu = new List<MenuItem>();
+        private List<MenuItem> m_AllMenuItems = new List<MenuItem>();
+        #endregion Members
 
         #region Constructors
-        public MainMenu()
-        {
-
-        }
+        public MainMenu(){}
         #endregion Constructors
 
         #region Methods
-        public void AddMenuItem(string i_MenuItemName, Action i_MenuAction)
+        /// <summary>
+        /// Build Menu Item Path and add action.
+        /// <param name="i_MenuItemPath">
+        /// Path of the menu action.
+        /// all string that sepereted by comma will be build as a submenu.
+        ///     e.g.: "About, info"
+        /// </param>
+        /// <param name="i_MenuAction">
+        /// Action of the menu item
+        /// </param>
+        /// </summary>
+        public void AddMenuItem(string i_MenuItemPath, Action i_MenuAction)
         {
-            MenuItem newMenuItem = new MenuItem(i_MenuItemName);
-            newMenuItem.MenuAction = i_MenuAction;
-            r_MenuItems.Add(newMenuItem);
+            try
+            {
+                List<string> parsedMenuItemPath = parseToArray(i_MenuItemPath);
+                MenuItem menuItem = buildMenuItemPath(parsedMenuItemPath);
+                menuItem.MenuAction = i_MenuAction;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Unable to build menu item");
+            }
         }
 
-        public void Invoke(string i_userInput)
+        public void Select(string i_userInput)
         {
-            foreach(var menuItem in r_MenuItems)
+            foreach (MenuItem menuItem in m_AllMenuItems)
             {
-                if(menuItem.Title == i_userInput)
+                if (menuItem.Title == i_userInput)
                 {
-                    menuItem.FireAction();
+                    menuItem.Click();
                 }
             }
         }
 
         public void Draw()
         {
-            foreach(var MenuItem in r_MenuItems)
+            string outputString = "";
+            foreach(var MenuItem in m_Menu)
             {
-                Console.WriteLine("{0} ", MenuItem.Title);
+                outputString += string.Format("[{0}] ", MenuItem.Title);
             }
+
+            Console.WriteLine(outputString);
+        }
+
+        private MenuItem buildMenuItemPath(List<string> i_MenuItemPathArray)
+        {
+            List<MenuItem> submenu = m_Menu;
+            MenuItem nextItemMenu = null;
+
+            foreach(string itemName in i_MenuItemPathArray)
+            {
+                nextItemMenu = new MenuItem(itemName);
+
+                if(submenu.Contains(nextItemMenu))
+                {
+                    submenu = submenu[submenu.IndexOf(nextItemMenu)].Submenu;
+                }
+                else
+                {
+                    submenu.Add(nextItemMenu);
+                    m_AllMenuItems.Add(nextItemMenu);
+                    submenu = nextItemMenu.Submenu;
+                }
+            }
+            
+            return nextItemMenu;
+        } 
+
+        private List<string> parseToArray(string i_MenuItemPath)
+        {
+            List<string> menuPathArray = i_MenuItemPath.Split(',').ToList();
+
+            //remove first char of string if its 'space'
+            for(int i = 0; i < menuPathArray.Count; i++)
+            {
+                if (Char.IsWhiteSpace(menuPathArray[i], 0))
+                {
+                    menuPathArray[i] = menuPathArray[i].Substring(1);
+                }
+            }
+
+            return menuPathArray;
         }
         #endregion Methods
     }
