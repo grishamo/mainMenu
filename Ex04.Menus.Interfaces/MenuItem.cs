@@ -7,7 +7,7 @@ namespace Ex04.Menus.Delegates
     class MenuItem
     {
         #region Members 
-        Action m_itemAction;
+        Action<object> m_itemAction;
         private List<MenuItem> m_submenu = new List<MenuItem>(); 
         private string m_itemTitle;
         #endregion Members
@@ -23,7 +23,7 @@ namespace Ex04.Menus.Delegates
             get { return m_submenu; }
             set { m_submenu = value; }
         }
-        public Action MenuAction
+        public Action<object> MenuAction
         {
             get { return m_itemAction; }
             set { m_itemAction = value; }
@@ -42,7 +42,7 @@ namespace Ex04.Menus.Delegates
         {
             if(MenuAction != null)
             {
-                m_itemAction();
+                m_itemAction(this);
             }
 
             if (Submenu.Count > 0)

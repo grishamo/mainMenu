@@ -31,24 +31,24 @@ namespace Ex04.Menu.Test
         }
 
 
-        static void ShowDate()
+        static void ShowDate(object obj)
         {
             DateTime date = new DateTime();
-            Console.WriteLine(date.ToShortDateString());
+            Console.WriteLine(date.ToUniversalTime());
         }
 
-        static void ShowTime()
+        static void ShowTime(object obj)
         {
             DateTime date = new DateTime();
             Console.WriteLine(date.ToShortTimeString());
         }
 
-        static void ShowVersion()
+        static void ShowVersion(object obj)
         {
             Console.WriteLine("Version: 18.2.4.0");
         }
 
-        static void CountCapitals()
+        static void CountCapitals(object obj)
         {
             Console.WriteLine("Please enter word:");
             string userInput = Console.ReadLine();

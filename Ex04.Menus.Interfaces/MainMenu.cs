@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -31,11 +30,11 @@ namespace Ex04.Menus.Delegates
         /// Action of the menu item
         /// </param>
         /// </summary>
-        public void AddMenuItem(string i_MenuItemPath, Action i_MenuAction)
+        public void AddMenuItem(string i_MenuItemPath, Action<object> i_MenuAction)
         {
             try
             {
-                List<string> parsedMenuItemPath = parseToArray(i_MenuItemPath);
+                string[] parsedMenuItemPath = parseToArray(i_MenuItemPath);
                 MenuItem menuItem = buildMenuItemPath(parsedMenuItemPath);
                 menuItem.MenuAction = i_MenuAction;
             }
@@ -67,7 +66,7 @@ namespace Ex04.Menus.Delegates
             Console.WriteLine(outputString);
         }
 
-        private MenuItem buildMenuItemPath(List<string> i_MenuItemPathArray)
+        private MenuItem buildMenuItemPath(string [] i_MenuItemPathArray)
         {
             List<MenuItem> submenu = m_Menu;
             MenuItem nextItemMenu = null;
@@ -91,12 +90,12 @@ namespace Ex04.Menus.Delegates
             return nextItemMenu;
         } 
 
-        private List<string> parseToArray(string i_MenuItemPath)
+        private string[] parseToArray(string i_MenuItemPath)
         {
-            List<string> menuPathArray = i_MenuItemPath.Split(',').ToList();
+			string[] menuPathArray = i_MenuItemPath.Split(',');
 
             //remove first char of string if its 'space'
-            for(int i = 0; i < menuPathArray.Count; i++)
+            for(int i = 0; i < menuPathArray.Length; i++)
             {
                 if (Char.IsWhiteSpace(menuPathArray[i], 0))
                 {
