@@ -4,10 +4,11 @@ using System.Text;
 
 namespace Ex04.Menus.Delegates
 {
+    //TODO: change Action<obj> to Action<T>
     class MenuItem
     {
         #region Members 
-        Action m_itemAction;
+        Action<object> m_itemAction;
         private List<MenuItem> m_submenu = new List<MenuItem>(); 
         private string m_itemTitle;
         #endregion Members
@@ -23,7 +24,7 @@ namespace Ex04.Menus.Delegates
             get { return m_submenu; }
             set { m_submenu = value; }
         }
-        public Action MenuAction
+        public Action<Object> MenuAction
         {
             get { return m_itemAction; }
             set { m_itemAction = value; }
@@ -38,11 +39,11 @@ namespace Ex04.Menus.Delegates
         #endregion Constructors
 
         #region Methods
-        public void Click()
+        public void Click(object obj)
         {
             if(MenuAction != null)
             {
-                m_itemAction();
+                m_itemAction(obj);
             }
 
             if (Submenu.Count > 0)
