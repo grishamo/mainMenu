@@ -13,6 +13,12 @@ namespace Ex04.Menu.Test
             Menus.Delegates.MainMenu mainMenuDelegates = new Menus.Delegates.MainMenu();
             Menus.Interfaces.MainMenu mainMenuInterfaces = new Menus.Interfaces.MainMenu();
 
+            mainMenuInterfaces.AddMenuItem("Show Date/Time, Show Date");
+            mainMenuInterfaces.AddMenuItem("Show Date/Time, Show Time");
+            mainMenuInterfaces.AddMenuItem("Version and Capitals, Count Capitals");
+            mainMenuInterfaces.AddMenuItem("Version and Capitals, Show Version");
+            mainMenuInterfaces.AddMenuItem("Exit");
+            mainMenuInterfaces.Draw();
 
 
             mainMenuDelegates.AddMenuItem("Show Date/Time, Show Date", ShowDate);
