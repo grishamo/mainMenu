@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Ex04.Menus.Delegates;
+using Ex04.Menus;
 
 namespace Ex04.Menu.Test
 {
@@ -10,18 +10,22 @@ namespace Ex04.Menu.Test
         static void Main()
         {
             string userInput;
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.AddMenuItem("Show Date/Time, Show Date", ShowDate);
-            mainMenu.AddMenuItem("Show Date/Time, Show Time", ShowTime);
-            mainMenu.AddMenuItem("Version and Capitals, Count Capitals", CountCapitals);
-            mainMenu.AddMenuItem("Version and Capitals, Show Version", ShowVersion);
-            mainMenu.AddMenuItem("Exit", null);
-            mainMenu.Draw();
+            Menus.Delegates.MainMenu mainMenuDelegates = new Menus.Delegates.MainMenu();
+            Menus.Interfaces.MainMenu mainMenuInterfaces = new Menus.Interfaces.MainMenu();
+
+
+
+            mainMenuDelegates.AddMenuItem("Show Date/Time, Show Date", ShowDate);
+            mainMenuDelegates.AddMenuItem("Show Date/Time, Show Time", ShowTime);
+            mainMenuDelegates.AddMenuItem("Version and Capitals, Count Capitals", CountCapitals);
+            mainMenuDelegates.AddMenuItem("Version and Capitals, Show Version", ShowVersion);
+            mainMenuDelegates.AddMenuItem("Exit", null);
+            mainMenuDelegates.Draw();
 
             do
             {
                 userInput = Console.ReadLine();
-                mainMenu.Select(userInput);
+                mainMenuDelegates.Invoke(userInput);
             }
             while (userInput != "Exit");
             
@@ -31,24 +35,24 @@ namespace Ex04.Menu.Test
         }
 
 
-        static void ShowDate()
+        static void ShowDate(object obj)
         {
-            DateTime date = new DateTime();
+            DateTime date = DateTime.Now;
             Console.WriteLine(date.ToShortDateString());
         }
 
-        static void ShowTime()
+        static void ShowTime(object obj)
         {
-            DateTime date = new DateTime();
+            DateTime date = DateTime.Now;
             Console.WriteLine(date.ToShortTimeString());
         }
 
-        static void ShowVersion()
+        static void ShowVersion(object obj)
         {
             Console.WriteLine("Version: 18.2.4.0");
         }
 
-        static void CountCapitals()
+        static void CountCapitals(object obj)
         {
             Console.WriteLine("Please enter word:");
             string userInput = Console.ReadLine();
