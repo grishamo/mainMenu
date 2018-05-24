@@ -14,7 +14,7 @@ namespace Ex04.Menu.Test
             Menus.Delegates.MainMenu mainMenu = new Menus.Delegates.MainMenu();
 
             mainMenu.AddMenuItem("Delegates", buildDelegatesMenu);
-            mainMenu.AddMenuItem("Interface", buildDelegatesMenu);
+            mainMenu.AddMenuItem("Interface", buildInterfaceMenu);
             mainMenu.AddMenuItem("Exit", null);
 
             do
@@ -65,6 +65,7 @@ namespace Ex04.Menu.Test
             do
             {
                 userInput = Console.ReadLine();
+                mainMenuInterface.Invoke(userInput);
                 MouseEvents.Invoke(userInput);
             }
             while (userInput != "Exit");
@@ -77,7 +78,8 @@ namespace Ex04.Menu.Test
     {
         public static void Invoke(string i_methodName)
         {
-            MethodInfo method = typeof(MouseEvents).GetMethod(i_methodName);
+            string noSpacesMethodName = i_methodName.Replace(" ", "");
+            MethodInfo method = typeof(MouseEvents).GetMethod(noSpacesMethodName);
             if (method != null)
             {
                method.Invoke(method, new object[] { null });

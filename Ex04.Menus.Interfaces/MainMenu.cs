@@ -40,6 +40,17 @@ namespace Ex04.Menus.Interfaces
             }
         }
 
+        public void Invoke(string i_userInput)
+        {
+            foreach (MenuItem menuItem in m_AllMenuItems)
+            {
+                if (menuItem.Title == i_userInput)
+                {
+                    menuItem.Click(i_userInput);
+                }
+            }
+        }
+
         public void Draw()
         {
             string outputString = "";

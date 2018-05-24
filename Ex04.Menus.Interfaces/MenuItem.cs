@@ -37,6 +37,26 @@ namespace Ex04.Menus.Interfaces
             return (obj as MenuItem).Title == Title;
         }
 
+        public void Click(object i_obj)
+        {
+            DrawSubmenu();
+        }
+
+        public void DrawSubmenu()
+        {
+            if (Submenu != null)
+            {
+                string outputString = "";
+                foreach (var MenuItem in Submenu)
+                {
+                    outputString += string.Format("[{0}] ", MenuItem.Title);
+                }
+
+                Console.WriteLine("\n" + Title);
+                Console.WriteLine(outputString);
+            }
+        }
+
         public static bool operator ==(MenuItem i_obj1, MenuItem i_obj2)
         {
             return i_obj1.Title == i_obj2.Title;

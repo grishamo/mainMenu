@@ -16,5 +16,6 @@ namespace Ex04.Menus.Interfaces
             get;
             set;
         }
+        void DrawSubmenu();
     }
 }
